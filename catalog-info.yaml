@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shield-server
+  links:
+    - url: http://devops.ascentapi.com:8080/job/Shield%20Server/job/prod/
+      title: Build
+      icon: dashboard
+    - url: http://devops.ascentapi.com/#/templates/job_template/14/details
+      title: Deploy
+      icon: dashboard
+  description: |
+    Shield Server Hub
+  annotations:
+    ansible/template-labels: shield-server, db-server
+spec:
+  type: service
+  owner: Ascent
+  lifecycle: production
