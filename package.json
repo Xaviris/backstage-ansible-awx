@@ -1,6 +1,6 @@
 {
   "name": "@xaviris/backstage-ansible-awx",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Backstage plugin for running Ansible AWX job templates",
   "main": "dist/index.esm.js",
   "scripts": {
