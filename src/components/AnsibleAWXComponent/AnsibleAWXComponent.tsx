@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Table, TableColumn, Progress, ResponseErrorPanel } from '@backstage/core-components';
 import { useEntity } from '@backstage/plugin-catalog-react';
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
 
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -124,6 +125,8 @@ export const DenseTable = ({ templates, onRunJob }: DenseTableProps) => {
 };
 
 export const EntityAWXContent = () => {
+    const config = useApi(configApiRef);
+    const backendUrl = config.getString('backend.baseUrl');
     const [templates, setTemplates] = useState<JobTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -138,7 +141,7 @@ export const EntityAWXContent = () => {
     }, [templates]);
 
     async function fetchTemplates() {
-        const response = await fetch('http://devops.ascentapi.com:7007/api/proxy/ansible-awx/api/v2/organizations/2/job_templates/');
+        const response = await fetch(`${backendUrl}/api/proxy/ansible-awx/api/v2/organizations/2/job_templates/`);
         const data = await response.json();
         console.log("API Response: ", data);
 
