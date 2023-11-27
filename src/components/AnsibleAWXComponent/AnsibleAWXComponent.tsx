@@ -130,6 +130,7 @@ export const EntityAWXContent = () => {
     const [intervals, setIntervals] = useState({});
     const [runningJobs, setRunningJobs] = useState({});
 
+
     const templatesRef = useRef(templates);
 
     useEffect(() => {
@@ -152,7 +153,7 @@ export const EntityAWXContent = () => {
         };
         console.log("Start job", id);
 
-        fetch('http://devops.ascentapi.com:7007/api/proxy/ansible-awx/api/v2/job_templates/' + id + '/launch/', requestOptions)
+        fetch(`${backendUrl}/api/proxy/ansible-awx/api/v2/job_templates/` + id + '/launch/', requestOptions)
             .then(() => {
                 fetchTemplates();
                 setRunningJobs(prevJobs => ({ ...prevJobs, [id]: true }));
