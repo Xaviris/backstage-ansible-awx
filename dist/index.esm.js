@@ -13,7 +13,7 @@ const ansibleAwxPlugin = createPlugin({
 const EntityAWXPage = ansibleAwxPlugin.provide(
   createRoutableExtension({
     name: "EntityAWXPage",
-    component: () => import('./esm/index-f85d1e43.esm.js').then((m) => m.EntityAWXContent),
+    component: () => import('./esm/index-e56d86b2.esm.js').then((m) => m.EntityAWXContent),
     mountPoint: rootRouteRef
   })
 );

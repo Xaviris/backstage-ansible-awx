@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Progress, ResponseErrorPanel, Table } from '@backstage/core-components';
 import { useEntity } from '@backstage/plugin-catalog-react';
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -84,6 +85,8 @@ const DenseTable = ({ templates, onRunJob }) => {
   );
 };
 const EntityAWXContent = () => {
+  const config = useApi(configApiRef);
+  const backendUrl = config.getString("backend.baseUrl");
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -94,7 +97,7 @@ const EntityAWXContent = () => {
     templatesRef.current = templates;
   }, [templates]);
   async function fetchTemplates() {
-    const response = await fetch("http://devops.ascentapi.com:7007/api/proxy/ansible-awx/api/v2/organizations/2/job_templates/");
+    const response = await fetch(`${backendUrl}/api/proxy/ansible-awx/api/v2/organizations/2/job_templates/`);
     const data = await response.json();
     console.log("API Response: ", data);
     setTemplates(data.results || []);
@@ -105,7 +108,7 @@ const EntityAWXContent = () => {
       headers: { "Content-Type": "application/json" }
     };
     console.log("Start job", id);
-    fetch("http://devops.ascentapi.com:7007/api/proxy/ansible-awx/api/v2/job_templates/" + id + "/launch/", requestOptions).then(() => {
+    fetch(`${backendUrl}/api/proxy/ansible-awx/api/v2/job_templates/` + id + "/launch/", requestOptions).then(() => {
       fetchTemplates();
       setRunningJobs((prevJobs) => ({ ...prevJobs, [id]: true }));
     }).catch((error2) => console.error("Error launching job", error2));
@@ -151,4 +154,4 @@ const EntityAWXContent = () => {
 };
 
 export { EntityAWXContent };
-//# sourceMappingURL=index-f85d1e43.esm.js.map
+//# sourceMappingURL=index-e56d86b2.esm.js.map
