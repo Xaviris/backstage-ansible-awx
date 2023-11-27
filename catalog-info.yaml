@@ -12,7 +12,7 @@ metadata:
   description: |
     Shield Server Hub
   annotations:
-    # ansible/template-labels: shield-server, db-server
+    ansible/template-labels: shield-server, db-server
 spec:
   type: service
   owner: Ascent
